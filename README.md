@@ -6,12 +6,13 @@ The following concepts are currently demonstrated:
 
 * Perform CRUD operations against a relational database using Spring Data JPA repositories.  See [QuizRepository.java](src/main/java/org/example/data/QuizRepository.java)
 * Find size of a mapped collection without having to load all elements in the collection.  See [QuizRepositoryTest.java](src/test/java/org/example/data/QuizRepositoryTest.java)
+* Two `EntityManager`s.  See [springContext.xml](src/main/resources/springContext.xml)
 
 # License
 This sample application and its associated source code in its entirety is being made
 available under the following licensing terms.
 
-    Copyright (C) 2014
+    Copyright (C) 2015
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of
     this software and associated documentation files (the "Software"), to deal in the
