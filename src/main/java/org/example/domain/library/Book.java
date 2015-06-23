@@ -1,4 +1,6 @@
-package org.example.domain;
+package org.example.domain.library;
+
+import org.example.domain.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,23 +9,21 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "question")
-public class Question extends Model
+@Table(name = "book")
+public class Book extends Model
 {
   @Column(name = "title")
   @NotNull
   @Size(max = 100)
   private String title;
 
-  Question()
+  Book()
   {
     super();
   }
 
-  public Question(final String title)
+  public Book(final String title)
   {
-    this();
-
     this.title = title;
   }
 

@@ -1,5 +1,6 @@
-package org.example.domain;
+package org.example.domain.quiz;
 
+import org.example.domain.Model;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 

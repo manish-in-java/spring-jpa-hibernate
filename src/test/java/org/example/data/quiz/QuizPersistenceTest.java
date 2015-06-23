@@ -1,11 +1,13 @@
-package org.example.data;
+package org.example.data.quiz;
 
-import org.example.domain.Question;
-import org.example.domain.Quiz;
+import org.example.data.DataTest;
+import org.example.domain.quiz.Question;
+import org.example.domain.quiz.Quiz;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -14,16 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
-import java.util.UUID;
 import java.util.stream.IntStream;
 
 @ContextConfiguration(locations = "classpath:springContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
+@Transactional(value = "quizTransactionManager")
 @TransactionConfiguration(defaultRollback = true)
-public class QuizRepositoryTest
+public class QuizPersistenceTest extends DataTest
 {
-  @PersistenceContext
+  @PersistenceContext(unitName = "quiz")
+  @Qualifier("quiz")
   private EntityManager entityManager;
 
   @Before
@@ -46,10 +48,5 @@ public class QuizRepositoryTest
     entityManager.createQuery(query.select(query.from(Quiz.class)))
         .getResultList()
         .forEach(quiz -> Assert.assertEquals(10, quiz.getQuestions().size()));
-  }
-
-  private String getString()
-  {
-    return UUID.randomUUID().toString();
   }
 }

@@ -14,7 +14,7 @@ public abstract class Model
   @Id
   private Long id;
 
-  Model()
+  protected Model()
   {
     super();
   }

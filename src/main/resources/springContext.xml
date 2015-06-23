@@ -13,41 +13,80 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
   <aop:aspectj-autoproxy/>
 
-  <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+  <bean id="libraryDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
     <property name="defaultAutoCommit" value="false"/>
     <property name="driverClass" value="org.h2.Driver"/>
-    <property name="jdbcUrl" value="jdbc:h2:mem:sample"/>
+    <property name="jdbcUrl" value="jdbc:h2:mem:library"/>
     <property name="password" value=""/>
     <property name="username" value="sa"/>
     <property name="idleConnectionTestPeriodInSeconds" value="120"/>
     <property name="idleMaxAgeInSeconds" value="240"/>
-    <property name="maxConnectionsPerPartition" value="10"/>
-    <property name="minConnectionsPerPartition" value="5"/>
-    <property name="partitionCount" value="5"/>
-    <property name="acquireIncrement" value="5"/>
+    <property name="maxConnectionsPerPartition" value="5"/>
+    <property name="minConnectionsPerPartition" value="1"/>
+    <property name="partitionCount" value="1"/>
+    <property name="acquireIncrement" value="1"/>
     <property name="statementsCacheSize" value="100"/>
   </bean>
 
-  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-    <property name="dataSource" ref="dataSource"/>
+  <bean id="quizDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+    <property name="defaultAutoCommit" value="false"/>
+    <property name="driverClass" value="org.h2.Driver"/>
+    <property name="jdbcUrl" value="jdbc:h2:mem:quiz"/>
+    <property name="password" value=""/>
+    <property name="username" value="sa"/>
+    <property name="idleConnectionTestPeriodInSeconds" value="120"/>
+    <property name="idleMaxAgeInSeconds" value="240"/>
+    <property name="maxConnectionsPerPartition" value="5"/>
+    <property name="minConnectionsPerPartition" value="1"/>
+    <property name="partitionCount" value="1"/>
+    <property name="acquireIncrement" value="1"/>
+    <property name="statementsCacheSize" value="100"/>
+  </bean>
+
+  <bean id="libraryEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="dataSource" ref="libraryDataSource"/>
     <property name="jpaVendorAdapter">
-      <bean id="hibernateJpaAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+      <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect"/>
         <property name="generateDdl" value="true"/>
         <property name="showSql" value="true"/>
       </bean>
     </property>
-    <property name="packagesToScan" value="org.example.domain"/>
+    <property name="packagesToScan" value="org.example.domain.library"/>
+    <property name="persistenceUnitName" value="library"/>
   </bean>
 
-  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-    <property name="entityManagerFactory" ref="entityManagerFactory"/>
+  <bean id="quizEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="dataSource" ref="quizDataSource"/>
+    <property name="jpaVendorAdapter">
+      <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect"/>
+        <property name="generateDdl" value="true"/>
+        <property name="showSql" value="true"/>
+      </bean>
+    </property>
+    <property name="packagesToScan" value="org.example.domain.quiz"/>
+    <property name="persistenceUnitName" value="quiz"/>
+  </bean>
+
+  <bean id="libraryTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="libraryEntityManagerFactory"/>
+  </bean>
+
+  <bean id="quizTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="quizEntityManagerFactory"/>
   </bean>
 
   <context:annotation-config/>
   <context:component-scan base-package="org.example"/>
 
-  <jpa:repositories base-package="org.example.data"/>
+  <jpa:repositories base-package="org.example.data.library"
+                    entity-manager-factory-ref="libraryEntityManagerFactory"
+                    transaction-manager-ref="libraryTransactionManager"/>
+  <jpa:repositories base-package="org.example.data.quiz"
+                    entity-manager-factory-ref="quizEntityManagerFactory"
+                    transaction-manager-ref="quizTransactionManager"/>
 
-  <transaction:annotation-driven/>
+  <transaction:annotation-driven transaction-manager="libraryTransactionManager"/>
+  <transaction:annotation-driven transaction-manager="quizTransactionManager"/>
 </beans>
