@@ -4,7 +4,8 @@ Spring Data JPA.
 
 The following concepts are currently demonstrated:
 
-* Perform CRUD operations against a relational database using Spring Data JPA repositories.  See [QuizRepository.java](src/main/java/org/example/data/QuizRepository)
+* Perform CRUD operations against a relational database using Spring Data JPA repositories.  See [QuizRepository.java](src/main/java/org/example/data/QuizRepository.java)
+* Find size of a mapped collection without having to load all elements in the collection.  See [QuizRepositoryTest.java](src/test/java/org/example/data/QuizRepositoryTest.java)
 
 # License
 This sample application and its associated source code in its entirety is being made
