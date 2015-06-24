@@ -13,38 +13,51 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
   <aop:aspectj-autoproxy/>
 
-  <bean id="exampleDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
-    <property name="defaultAutoCommit" value="false"/>
-    <property name="driverClass" value="org.h2.Driver"/>
-    <property name="jdbcUrl" value="jdbc:h2:mem:example"/>
-    <property name="password" value=""/>
-    <property name="username" value="sa"/>
-    <property name="idleConnectionTestPeriodInSeconds" value="120"/>
-    <property name="idleMaxAgeInSeconds" value="240"/>
-    <property name="maxConnectionsPerPartition" value="5"/>
-    <property name="minConnectionsPerPartition" value="1"/>
-    <property name="partitionCount" value="1"/>
-    <property name="acquireIncrement" value="1"/>
-    <property name="statementsCacheSize" value="100"/>
+  <bean class="bitronix.tm.TransactionManagerServices" factory-method="getConfiguration" id="bitronixConfiguration"/>
+
+  <bean class="bitronix.tm.TransactionManagerServices"
+        depends-on="bitronixConfiguration"
+        destroy-method="shutdown"
+        factory-method="getTransactionManager"
+        id="bitronixTransactionManager"/>
+
+  <bean class="bitronix.tm.resource.jdbc.PoolingDataSource"
+        destroy-method="close"
+        id="exampleDataSource"
+        init-method="init">
+    <property name="allowLocalTransactions" value="true"/>
+    <property name="className" value="org.h2.jdbcx.JdbcDataSource"/>
+    <property name="driverProperties">
+      <props>
+        <prop key="password"/>
+        <prop key="url">jdbc:h2:mem:example</prop>
+        <prop key="user">sa</prop>
+      </props>
+    </property>
+    <property name="maxPoolSize" value="5"/>
+    <property name="minPoolSize" value="1"/>
+    <property name="uniqueName" value="exampleDS"/>
   </bean>
 
-  <bean id="sampleDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
-    <property name="defaultAutoCommit" value="false"/>
-    <property name="driverClass" value="org.h2.Driver"/>
-    <property name="jdbcUrl" value="jdbc:h2:mem:sample"/>
-    <property name="password" value=""/>
-    <property name="username" value="sa"/>
-    <property name="idleConnectionTestPeriodInSeconds" value="120"/>
-    <property name="idleMaxAgeInSeconds" value="240"/>
-    <property name="maxConnectionsPerPartition" value="5"/>
-    <property name="minConnectionsPerPartition" value="1"/>
-    <property name="partitionCount" value="1"/>
-    <property name="acquireIncrement" value="1"/>
-    <property name="statementsCacheSize" value="100"/>
+  <bean class="bitronix.tm.resource.jdbc.PoolingDataSource"
+        destroy-method="close"
+        id="sampleDataSource"
+        init-method="init">
+    <property name="allowLocalTransactions" value="true"/>
+    <property name="className" value="org.h2.jdbcx.JdbcDataSource"/>
+    <property name="driverProperties">
+      <props>
+        <prop key="password"/>
+        <prop key="url">jdbc:h2:mem:sample</prop>
+        <prop key="user">sa</prop>
+      </props>
+    </property>
+    <property name="maxPoolSize" value="5"/>
+    <property name="minPoolSize" value="1"/>
+    <property name="uniqueName" value="sampleDS"/>
   </bean>
 
-  <bean id="exampleEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-    <property name="dataSource" ref="exampleDataSource"/>
+  <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="exampleEntityManagerFactory">
     <property name="jpaVendorAdapter">
       <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect"/>
@@ -52,12 +65,12 @@
         <property name="showSql" value="true"/>
       </bean>
     </property>
+    <property name="jtaDataSource" ref="exampleDataSource"/>
     <property name="packagesToScan" value="org.example.domain"/>
     <property name="persistenceUnitName" value="example"/>
   </bean>
 
-  <bean id="sampleEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-    <property name="dataSource" ref="sampleDataSource"/>
+  <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="sampleEntityManagerFactory">
     <property name="jpaVendorAdapter">
       <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect"/>
@@ -65,28 +78,23 @@
         <property name="showSql" value="true"/>
       </bean>
     </property>
+    <property name="jtaDataSource" ref="sampleDataSource"/>
     <property name="packagesToScan" value="com.sample.domain"/>
     <property name="persistenceUnitName" value="sample"/>
   </bean>
 
-  <bean id="exampleTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-    <property name="entityManagerFactory" ref="exampleEntityManagerFactory"/>
-  </bean>
-
-  <bean id="sampleTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-    <property name="entityManagerFactory" ref="sampleEntityManagerFactory"/>
+  <bean class="org.springframework.transaction.jta.JtaTransactionManager" id="transactionManager">
+    <property name="transactionManager" ref="bitronixTransactionManager"/>
+    <property name="userTransaction" ref="bitronixTransactionManager"/>
   </bean>
 
   <context:annotation-config/>
   <context:component-scan base-package="org.example"/>
 
   <jpa:repositories base-package="org.example.data"
-                    entity-manager-factory-ref="exampleEntityManagerFactory"
-                    transaction-manager-ref="exampleTransactionManager"/>
+                    entity-manager-factory-ref="exampleEntityManagerFactory"/>
   <jpa:repositories base-package="com.sample.data"
-                    entity-manager-factory-ref="sampleEntityManagerFactory"
-                    transaction-manager-ref="sampleTransactionManager"/>
+                    entity-manager-factory-ref="sampleEntityManagerFactory"/>
 
-  <transaction:annotation-driven transaction-manager="exampleTransactionManager"/>
-  <transaction:annotation-driven transaction-manager="sampleTransactionManager"/>
+  <transaction:annotation-driven/>
 </beans>

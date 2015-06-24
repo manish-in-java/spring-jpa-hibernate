@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 
 @ContextConfiguration(locations = "classpath:springContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-@Transactional(value = "sampleTransactionManager")
+@Transactional
 @TransactionConfiguration(defaultRollback = true)
 public class QuizPersistenceTest extends DataTest
 {
