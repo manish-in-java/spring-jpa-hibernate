@@ -4,10 +4,11 @@ Spring Data JPA.
 
 The following concepts are currently demonstrated:
 
-* Perform CRUD operations against a relational database using Spring Data JPA repositories.  See [`LibraryRepository.java`](src/main/java/org/example/data/library/LibraryRepository.java)
-* Find size of a mapped collection without having to load all elements in the collection.  See [`QuizPersistenceTest.java`](src/test/java/com/sample/data/quiz/QuizPersistenceTest.java)
-* Two `EntityManager`s.  See [`springContext.xml`](src/main/resources/springContext.xml)
-* Manual assignment of entity identifiers.  See [`Invoice.java`](src/main/java/org/example/domain/billing/Invoice.java)
+* Perform CRUD operations against a relational database using Spring Data JPA repositories.  See [`LibraryRepository.java`](src/main/java/org/example/data/library/LibraryRepository.java).
+* Find size of a mapped collection without having to load all elements in the collection.  See [`QuizPersistenceTest.java`](src/test/java/com/sample/data/quiz/QuizPersistenceTest.java).
+* Two `EntityManager`s.  See [`springContext.xml`](src/main/resources/springContext.xml).
+* Manual assignment of entity identifiers.  See [`Invoice.java`](src/main/java/org/example/domain/billing/Invoice.java).
+* JTA transactions with Bitronix.  See [`springContext.xml`](src/main/resources/springContext.xml) for Bitronix configuration.
 
 # License
 This sample application and its associated source code in its entirety is being made
