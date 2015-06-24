@@ -1,6 +1,6 @@
-package org.example.domain.quiz;
+package com.sample.domain.quiz;
 
-import org.example.domain.Model;
+import com.sample.domain.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

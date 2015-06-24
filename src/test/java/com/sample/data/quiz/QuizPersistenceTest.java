@@ -1,8 +1,8 @@
-package org.example.data.quiz;
+package com.sample.data.quiz;
 
+import com.sample.domain.quiz.Question;
+import com.sample.domain.quiz.Quiz;
 import org.example.data.DataTest;
-import org.example.domain.quiz.Question;
-import org.example.domain.quiz.Quiz;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,12 +20,12 @@ import java.util.stream.IntStream;
 
 @ContextConfiguration(locations = "classpath:springContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-@Transactional(value = "quizTransactionManager")
+@Transactional(value = "sampleTransactionManager")
 @TransactionConfiguration(defaultRollback = true)
 public class QuizPersistenceTest extends DataTest
 {
-  @PersistenceContext(unitName = "quiz")
-  @Qualifier("quiz")
+  @PersistenceContext(unitName = "sample")
+  @Qualifier("sample")
   private EntityManager entityManager;
 
   @Before
