@@ -28,7 +28,13 @@
         <version>2.7</version>
         <configuration>
           <aggregate>true</aggregate>
-          <format>xml</format>
+          <check>
+            <haltOnFailure>true</haltOnFailure>
+          </check>
+          <formats>
+            <format>html</format>
+            <format>xml</format>
+          </formats>
         </configuration>
       </plugin>
       <plugin>

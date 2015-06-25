@@ -8,6 +8,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Represents a question.
+ */
 @Entity
 @Table(name = "question")
 public class Question extends Model
@@ -17,18 +20,31 @@ public class Question extends Model
   @Size(max = 100)
   private String title;
 
+  /**
+   * Deliberately hidden to prevent direct instantiation.
+   */
   Question()
   {
     super();
   }
 
+  /**
+   * Creates a question with a specified title.
+   *
+   * @param title The question title.
+   */
   public Question(final String title)
   {
     this();
 
-    this.title = title;
+    this.title = title.trim();
   }
 
+  /**
+   * Gets the question title.
+   *
+   * @return The question title.
+   */
   public String getTitle()
   {
     return title;

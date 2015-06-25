@@ -10,6 +10,9 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a quiz.
+ */
 @Entity
 @Table(name = "quiz")
 public class Quiz extends Model
@@ -24,18 +27,31 @@ public class Quiz extends Model
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Question> questions;
 
+  /**
+   * Deliberately hidden to prevent direct instantiation.
+   */
   Quiz()
   {
     super();
   }
 
+  /**
+   * Creates a quiz with a specified name.
+   *
+   * @param name quiz name.
+   */
   public Quiz(final String name)
   {
     this();
 
-    this.name = name;
+    this.name = name.trim();
   }
 
+  /**
+   * Adds a question to this quiz.
+   *
+   * @param question The question to add.
+   */
   public void addQuestion(final Question question)
   {
     if (questions == null)
@@ -46,11 +62,21 @@ public class Quiz extends Model
     questions.add(question);
   }
 
+  /**
+   * Gets the quiz name.
+   *
+   * @return The quiz name.
+   */
   public String getName()
   {
     return name;
   }
 
+  /**
+   * Gets the questions in the quiz.
+   *
+   * @return A {@link List} of {@link Question}s.
+   */
   public List<Question> getQuestions()
   {
     return questions;

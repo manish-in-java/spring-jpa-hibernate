@@ -9,7 +9,8 @@ The following concepts are currently demonstrated:
 * Two `EntityManager`s.  See [`springContext.xml`](src/main/resources/springContext.xml).
 * Manual assignment of entity identifiers.  See [`Invoice.java`](src/main/java/org/example/domain/billing/Invoice.java).
 * JTA transactions with Bitronix.  See [`springContext.xml`](src/main/resources/springContext.xml) for Bitronix configuration.
-* Bidirectional `@OneToOne` association between two entity classes when one of the classes uses a foreign key column for the association.  See [`Person.java`](src/main/java/org/example/domain/profile/Person.java).
+* Bidirectional `@OneToOne` association between two entity classes when one of the classes uses a foreign key column for the association.  See [`Employee.java`](src/main/java/org/example/domain/profile/Employee.java).
+* Executing JPA `count` query on an `abstract` class.  See [`WorkdayRepositoryTest.java`](src/test/java/org/example/data/profile/WorkdayRepositoryTest.java).
 
 # License
 This sample application and its associated source code in its entirety is being made

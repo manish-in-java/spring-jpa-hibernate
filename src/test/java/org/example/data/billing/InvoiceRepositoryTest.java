@@ -16,6 +16,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Integration tests for {@link InvoiceRepository}.
+ */
 @ContextConfiguration(locations = "classpath:springContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -25,21 +28,28 @@ public class InvoiceRepositoryTest extends DataTest
   @Autowired
   private InvoiceRepository invoiceRepository;
 
+  /**
+   * Adds some invoices for the tests to run.
+   */
   @Before
   public void setup()
   {
     for (int i = 0; i < getInt(); ++i)
     {
-      invoiceRepository.saveAndFlush(new Invoice((long) i + 1, new Date(), BigDecimal.TEN));
+      invoiceRepository.saveAndFlush(new Invoice(new Long(i + 1), new Date(), BigDecimal.TEN));
     }
   }
 
+  /**
+   * Tests that invoices can be loaded successfully.
+   */
   @Test
   public void testFindAll()
   {
     final List<Invoice> invoices = invoiceRepository.findAll();
 
     Assert.assertFalse(invoices.isEmpty());
+
     for (final Invoice invoice : invoices)
     {
       Assert.assertNotNull(invoice.getDate());

@@ -18,6 +18,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.stream.IntStream;
 
+/**
+ * Integration tests for {@link Quiz}.
+ */
 @ContextConfiguration(locations = "classpath:springContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -28,6 +31,9 @@ public class QuizPersistenceTest extends DataTest
   @Qualifier("sample")
   private EntityManager entityManager;
 
+  /**
+   * Adds a quiz with some questions for the tests to run.
+   */
   @Before
   public void setup()
   {
@@ -40,6 +46,10 @@ public class QuizPersistenceTest extends DataTest
     entityManager.detach(quiz);
   }
 
+  /**
+   * Tests that the number of questions assigned to a quiz can be
+   * determined without having to load all the questions.
+   */
   @Test
   public void testQuizQuestionsSize()
   {

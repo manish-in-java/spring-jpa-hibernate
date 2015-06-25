@@ -16,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.IntStream;
 
+/**
+ * Integration tests for {@link LibraryRepository}.
+ */
 @ContextConfiguration(locations = "classpath:springContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -25,6 +28,9 @@ public class LibraryRepositoryTest extends DataTest
   @Autowired
   private LibraryRepository libraryRepository;
 
+  /**
+   * Adds a library with some books for the tests to run.
+   */
   @Before
   public void setup()
   {
@@ -35,6 +41,9 @@ public class LibraryRepositoryTest extends DataTest
     libraryRepository.saveAndFlush(library);
   }
 
+  /**
+   * Tests that libraries can be loaded successfully.
+   */
   @Test
   public void testFindAll()
   {

@@ -4,9 +4,13 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
+/**
+ * Represents a domain entity having its own unique identity.
+ */
 @MappedSuperclass
-public abstract class Model
+public abstract class Model implements Serializable
 {
   @Column(name = "id")
   @Generated(GenerationTime.INSERT)
@@ -14,6 +18,9 @@ public abstract class Model
   @Id
   private Long id;
 
+  /**
+   * Deliberately hidden to prevent direct instantiation.
+   */
   protected Model()
   {
     super();
