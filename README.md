@@ -5,12 +5,14 @@ Spring Data JPA.
 The following concepts are currently demonstrated:
 
 * Perform CRUD operations against a relational database using Spring Data JPA repositories.  See [`LibraryRepository.java`](src/main/java/org/example/data/library/LibraryRepository.java).
+* Accessing the JPA `EntityManager` directly.  See [`QuizPersistenceTest.java`](src/test/java/com/sample/data/quiz/QuizPersistenceTest.java).
 * Find size of a mapped collection without having to load all elements in the collection.  See [`QuizPersistenceTest.java`](src/test/java/com/sample/data/quiz/QuizPersistenceTest.java).
 * Two `EntityManager`s.  See [`springContext.xml`](src/main/resources/springContext.xml).
-* Manual assignment of entity identifiers.  See [`Invoice.java`](src/main/java/org/example/domain/billing/Invoice.java).
+* Manual assignment of entity identifiers.  See [`Invoice.java`](src/main/java/org/example/domain/billing/Invoice.java) and [`InvoiceRepositoryTest.java`](src/test/java/org/example/data/billing/InvoiceRepositoryTest.java).
 * JTA transactions with Bitronix.  See [`springContext.xml`](src/main/resources/springContext.xml) for Bitronix configuration.
-* Bidirectional `@OneToOne` association between two entity classes when one of the classes uses a foreign key column for the association.  See [`Employee.java`](src/main/java/org/example/domain/profile/Employee.java).
+* `@OneToOne` association between two entity classes using a foreign key column.  See [`Employee.java`](src/main/java/org/example/domain/profile/Employee.java).
 * Executing JPA `count` query on an `abstract` class.  See [`WorkdayRepositoryTest.java`](src/test/java/org/example/data/profile/WorkdayRepositoryTest.java).
+* Extending Spring Data `JpaRepository`.  See [`ExtendedJpaRepository.java`](src/main/java/org/example/data/ExtendedJpaRepository.java).
 
 # License
 This sample application and its associated source code in its entirety is being made

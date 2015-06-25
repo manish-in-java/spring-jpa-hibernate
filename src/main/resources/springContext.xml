@@ -91,10 +91,11 @@
   <context:annotation-config/>
   <context:component-scan base-package="org.example"/>
 
-  <jpa:repositories base-package="org.example.data"
-                    entity-manager-factory-ref="exampleEntityManagerFactory"/>
   <jpa:repositories base-package="com.sample.data"
                     entity-manager-factory-ref="sampleEntityManagerFactory"/>
+  <jpa:repositories base-package="org.example.data"
+                    entity-manager-factory-ref="exampleEntityManagerFactory"
+                    factory-class="org.example.data.ExtendedJpaRepositoryFactoryBean"/>
 
   <transaction:annotation-driven/>
 </beans>
