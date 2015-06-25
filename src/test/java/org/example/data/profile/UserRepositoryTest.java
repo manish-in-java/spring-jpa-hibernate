@@ -1,6 +1,7 @@
 package org.example.data.profile;
 
 import org.example.data.DataTest;
+import org.example.domain.profile.Person;
 import org.example.domain.profile.RoleEnum;
 import org.example.domain.profile.User;
 import org.example.domain.profile.UserRole;
@@ -15,6 +16,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 
 @ContextConfiguration(locations = "classpath:springContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,6 +36,7 @@ public class UserRepositoryTest extends DataTest
 
     final User john = new User("john");
     john.addRole(userRoleRepository.findByName(RoleEnum.ADMIN));
+    john.setPerson(new Person("John", "Doe"));
 
     userRepository.saveAndFlush(john);
   }
@@ -41,6 +44,16 @@ public class UserRepositoryTest extends DataTest
   @Test
   public void testFindAll()
   {
-    Assert.assertFalse(userRepository.findAll().isEmpty());
+    final List<User> users = userRepository.findAll();
+
+    Assert.assertFalse(users.isEmpty());
+
+    users.forEach(user -> {
+      Assert.assertNotNull(user.getName());
+      Assert.assertNotNull(user.getPerson());
+      Assert.assertNotNull(user.getPerson().getFirstName());
+      Assert.assertNotNull(user.getPerson().getLastName());
+      Assert.assertEquals(user, user.getPerson().getUser());
+    });
   }
 }

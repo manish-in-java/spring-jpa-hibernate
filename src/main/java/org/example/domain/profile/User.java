@@ -15,6 +15,9 @@ public class User extends Model
   @NotNull
   private String name;
 
+  @OneToOne(cascade = CascadeType.ALL)
+  private Person person;
+
   @JoinTable(inverseJoinColumns = { @JoinColumn(name = "user_role_id") }, joinColumns = { @JoinColumn(name = "user_id") }, name = "user_user_role")
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<UserRole> roles;
@@ -46,8 +49,20 @@ public class User extends Model
     return name;
   }
 
+  public Person getPerson()
+  {
+    return person;
+  }
+
   public Set<UserRole> getRoles()
   {
     return roles;
+  }
+
+  public void setPerson(final Person person)
+  {
+    this.person = person;
+
+    person.setUser(this);
   }
 }
