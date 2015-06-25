@@ -1,4 +1,4 @@
-# Overview [![Build status](https://drone.io/github.com/manish-in-java/spring-jpa-hibernate/status.png)](https://drone.io/github.com/manish-in-java/spring-jpa-hibernate/latest)
+# Overview [![Build status](https://drone.io/github.com/manish-in-java/spring-jpa-hibernate/status.png)](https://drone.io/github.com/manish-in-java/spring-jpa-hibernate/latest) [![Code coverage status](https://coveralls.io/repos/manish-in-java/spring-jpa-hibernate/badge.svg?branch=master)](https://coveralls.io/r/manish-in-java/spring-jpa-hibernate?branch=master)
 Sample application that demonstrates the use of Hibernate as a JPA provider with
 Spring Data JPA.
 

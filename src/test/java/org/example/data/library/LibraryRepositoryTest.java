@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 @ContextConfiguration(locations = "classpath:springContext.xml")
@@ -37,6 +38,19 @@ public class LibraryRepositoryTest extends DataTest
   @Test
   public void testFindAll()
   {
-    Assert.assertFalse(libraryRepository.findAll().isEmpty());
+    final List<Library> libraries = libraryRepository.findAll();
+
+    Assert.assertFalse(libraries.isEmpty());
+    libraries.forEach(library -> {
+      Assert.assertNotNull(library.getBooks());
+      Assert.assertNotEquals(0, library.getBooks().size());
+      Assert.assertNotNull(library.getID());
+      Assert.assertNotNull(library.getName());
+
+      library.getBooks().forEach(book -> {
+        Assert.assertNotNull((book.getID()));
+        Assert.assertNotNull((book.getTitle()));
+      });
+    });
   }
 }

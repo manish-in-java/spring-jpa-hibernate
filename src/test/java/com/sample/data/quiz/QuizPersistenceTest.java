@@ -47,6 +47,15 @@ public class QuizPersistenceTest extends DataTest
 
     entityManager.createQuery(query.select(query.from(Quiz.class)))
         .getResultList()
-        .forEach(quiz -> Assert.assertEquals(10, quiz.getQuestions().size()));
+        .forEach(quiz -> {
+          Assert.assertNotNull(quiz.getID());
+          Assert.assertNotNull(quiz.getName());
+          Assert.assertEquals(10, quiz.getQuestions().size());
+
+          quiz.getQuestions().forEach(question -> {
+            Assert.assertNotNull(question.getID());
+            Assert.assertNotNull(question.getTitle());
+          });
+        });
   }
 }

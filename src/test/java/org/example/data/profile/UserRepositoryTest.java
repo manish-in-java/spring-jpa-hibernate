@@ -49,11 +49,19 @@ public class UserRepositoryTest extends DataTest
     Assert.assertFalse(users.isEmpty());
 
     users.forEach(user -> {
+      Assert.assertNotNull(user.getID());
       Assert.assertNotNull(user.getName());
       Assert.assertNotNull(user.getPerson());
       Assert.assertNotNull(user.getPerson().getFirstName());
       Assert.assertNotNull(user.getPerson().getLastName());
       Assert.assertEquals(user, user.getPerson().getUser());
+      Assert.assertNotNull(user.getRoles());
+      Assert.assertNotEquals(0, user.getRoles().size());
+
+      user.getRoles().forEach(role -> {
+        Assert.assertNotNull(role.getID());
+        Assert.assertNotNull(role.getName());
+      });
     });
   }
 }
