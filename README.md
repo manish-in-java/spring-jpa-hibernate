@@ -13,6 +13,7 @@ The following concepts are currently demonstrated:
 * `@OneToOne` association between two entity classes using a foreign key column.  See [`Employee.java`](src/main/java/org/example/domain/profile/Employee.java).
 * Executing JPA `count` query on an `abstract` class.  See [`WorkdayRepositoryTest.java`](src/test/java/org/example/data/profile/WorkdayRepositoryTest.java).
 * Extending Spring Data `JpaRepository`.  See [`ExtendedJpaRepository.java`](src/main/java/org/example/data/ExtendedJpaRepository.java).
+* Intercepting Spring Data repository method calls using AspectJ.  See [`RepositoryInterceptionAdvice.java`](src/main/java/org/example/aop/RepositoryInterceptionAdvice.java).
 
 # License
 This sample application and its associated source code in its entirety is being made
