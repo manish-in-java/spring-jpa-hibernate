@@ -4,16 +4,20 @@ Spring Data JPA.
 
 The following concepts are currently demonstrated:
 
-* Perform CRUD operations against a relational database using Spring Data JPA repositories.  See [`LibraryRepository.java`](src/main/java/org/example/data/library/LibraryRepository.java).
-* Accessing the JPA `EntityManager` directly.  See [`QuizPersistenceTest.java`](src/test/java/com/sample/data/quiz/QuizPersistenceTest.java).
-* Find size of a mapped collection without having to load all elements in the collection.  See [`QuizPersistenceTest.java`](src/test/java/com/sample/data/quiz/QuizPersistenceTest.java).
-* Two `EntityManager`s.  See [`springContext.xml`](src/main/resources/springContext.xml).
-* Manual assignment of entity identifiers.  See [`Invoice.java`](src/main/java/org/example/domain/billing/Invoice.java) and [`InvoiceRepositoryTest.java`](src/test/java/org/example/data/billing/InvoiceRepositoryTest.java).
-* JTA transactions with Bitronix.  See [`springContext.xml`](src/main/resources/springContext.xml) for Bitronix configuration.
-* `@OneToOne` association between two entity classes using a foreign key column.  See [`Employee.java`](src/main/java/org/example/domain/profile/Employee.java).
-* Executing JPA `count` query on an `abstract` class.  See [`WorkdayRepositoryTest.java`](src/test/java/org/example/data/profile/WorkdayRepositoryTest.java).
-* Extending Spring Data `JpaRepository`.  See [`ExtendedJpaRepository.java`](src/main/java/org/example/data/ExtendedJpaRepository.java).
-* Intercepting Spring Data repository method calls using AspectJ.  See [`RepositoryInterceptionAdvice.java`](src/main/java/org/example/aop/RepositoryInterceptionAdvice.java).
+Concept | Description | See
+------- | ----------- | ---
+**Spring Data JPA repositories** | Perform [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations agains a relational database using the [Repository pattern](http://martinfowler.com/eaaCatalog/repository.html) | [`LibraryRepository.java`](src/main/java/org/example/data/library/LibraryRepository.java)
+**Direct `EntityManager` access** | Accessing the JPA `EntityManager` directly for fine-grained control over database interactions | [`QuizPersistenceTest.java`](src/test/java/com/sample/data/quiz/QuizPersistenceTest.java)
+**Collection size** | Find size of a mapped collection without having to load all elements in the collection | [`QuizPersistenceTest.java`](src/test/java/com/sample/data/quiz/QuizPersistenceTest.java)
+**Multiple `EntityManager`s** | Use multiple `EntityManager`s in a single application | [`springContext.xml`](src/main/resources/springContext.xml)
+**Manual identifier generation** | Generate entity identifiers manually | [`Invoice.java`](src/main/java/org/example/domain/billing/Invoice.java) and [`InvoiceRepositoryTest.java`](src/test/java/org/example/data/billing/InvoiceRepositoryTest.java)
+**JTA transactions** | Support JTA transactions across multiple data stores using Bitronix | [`springContext.xml`](src/main/resources/springContext.xml)
+**`@OneToOne` with foreign keys** | `@OneToOne` association between two entity classes using a foreign key column | [`Employee.java`](src/main/java/org/example/domain/profile/Employee.java)
+**JPA `count` query on `abstract` class** | Executing a `count` query on an `abstract` class | [`WorkdayRepositoryTest.java`](src/test/java/org/example/data/profile/WorkdayRepositoryTest.java)
+**Custom JPA functionality** | Extending Spring Data `JpaRepository` to provide custom functionality for all repositories | [`ExtendedJpaRepository.java`](src/main/java/org/example/data/ExtendedJpaRepository.java)
+**AspectJ integration** | Intercepting Spring Data repository method calls using AspectJ | [`RepositoryInterceptionAdvice.java`](src/main/java/org/example/aop/RepositoryInterceptionAdvice.java)
+**`Single Table` inheritance** | Single-table inheritance for storing related objects | [`Card.java`](src/main/java/org/example/domain/game/Card.java)
+**Polymorphism with generics** | Demonstrate inheritance-based polymorphism along with generics | [`CardInstance.java`](src/main/java/org/example/domain/game/CardInstance.java)
 
 # License
 This sample application and its associated source code in its entirety is being made
