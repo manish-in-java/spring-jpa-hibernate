@@ -58,11 +58,16 @@
   </bean>
 
   <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="exampleEntityManagerFactory">
+    <property name="jpaProperties">
+      <props>
+        <prop key="hibernate.hbm2ddl.auto">create</prop>
+      </props>
+    </property>
     <property name="jpaVendorAdapter">
       <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect"/>
-        <property name="generateDdl" value="true"/>
-        <property name="showSql" value="true"/>
+        <property name="generateDdl" value="false"/>
+        <property name="showSql" value="false"/>
       </bean>
     </property>
     <property name="jtaDataSource" ref="exampleDataSource"/>
@@ -75,7 +80,7 @@
       <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect"/>
         <property name="generateDdl" value="true"/>
-        <property name="showSql" value="true"/>
+        <property name="showSql" value="false"/>
       </bean>
     </property>
     <property name="jtaDataSource" ref="sampleDataSource"/>
