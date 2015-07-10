@@ -16,6 +16,7 @@ Concept | Description | See
 **JPA `count` query on `abstract` class** | Executing a `count` query on an `abstract` class | [`WorkdayRepositoryTest.java`](src/test/java/org/example/data/profile/WorkdayRepositoryTest.java)
 **Custom JPA functionality** | Extending Spring Data `JpaRepository` to provide custom functionality for all repositories | [`ExtendedJpaRepository.java`](src/main/java/org/example/data/ExtendedJpaRepository.java)
 **AspectJ integration** | Intercepting Spring Data repository method calls using AspectJ | [`RepositoryInterceptionAdvice.java`](src/main/java/org/example/aop/RepositoryInterceptionAdvice.java)
+**SQL Injection protection** | Use type-safe, parameterized queries to prevent [SQL Injection attacks](https://en.wikipedia.org/wiki/SQL_injection) | [`StockRepositoryTest.java`](https://github.com/manish-in-java/spring-jpa-hibernate/blob/master/src/test/java/org/example/data/inventory/StockRepositoryTest.java)
 **`Single Table` inheritance** | Single-table inheritance for storing related objects | [`Card.java`](src/main/java/org/example/domain/game/Card.java)
 **Polymorphism with generics** | Demonstrate inheritance-based polymorphism along with generics | [`CardInstance.java`](src/main/java/org/example/domain/game/CardInstance.java)
 
