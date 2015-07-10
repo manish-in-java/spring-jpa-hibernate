@@ -38,7 +38,11 @@ public class StockRepositoryTest extends DataTest
   public void setup()
   {
     IntStream.range(0, getInt()).forEach(i -> {
-      stockRepository.saveAndFlush(new Stock(PRODUCT, BATCH, LOT, 100));
+      final Stock stock = new Stock(PRODUCT, BATCH, LOT, 100);
+
+      stockRepository.saveAndFlush(stock);
+
+      stockRepository.detach(stock);
     });
   }
 
@@ -110,5 +114,20 @@ public class StockRepositoryTest extends DataTest
     stocks.forEach(stock -> {
       Assert.assertEquals(stock, stockRepository.refresh(stock));
     });
+  }
+
+  /**
+   * Tests that repository queries are not vulnerable to {@code SQL Injection}.
+   */
+  @Test
+  public void testSQLInjection()
+  {
+    // Find the number of stock items for the specified product
+    // and ensure that the number is non-zero.
+    Assert.assertNotEquals(0, stockRepository.countByProduct(PRODUCT).intValue());
+
+    // Attempt a SQL Injection attack and ensure that the stock
+    // item count is zero.
+    Assert.assertEquals(0, stockRepository.countByProduct(PRODUCT + "' or '1'='1").intValue());
   }
 }

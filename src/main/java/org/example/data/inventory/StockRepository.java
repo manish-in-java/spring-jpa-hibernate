@@ -11,6 +11,14 @@ import java.util.List;
 public interface StockRepository extends ModelRepository<Stock>
 {
   /**
+   * Finds the number of stock items for a specific product.
+   *
+   * @param product The name of the product for which stock item count is required.
+   * @return The number number of stock items for the specific product.
+   */
+  Long countByProduct(String product);
+
+  /**
    * Finds all stock for a specified product with a given
    * batch and lot number and quantity greater than a
    * specified value.
