@@ -3,6 +3,7 @@ package org.example.data;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.io.Serializable;
@@ -34,7 +35,7 @@ public class ExtendedJpaRepository<T, ID extends Serializable>
   /**
    * {@inheritDoc}
    */
-  public T detach(final T entity)
+  public <S extends T> S detach(final S entity)
   {
     entityManager.detach(entity);
 
@@ -55,10 +56,21 @@ public class ExtendedJpaRepository<T, ID extends Serializable>
   /**
    * {@inheritDoc}
    */
-  public T refresh(final T entity)
+  public <S extends T> S refresh(final S entity)
   {
     entityManager.refresh(entity);
 
     return entity;
+  }
+
+  /*
+   * {@inheritDoc}
+   */
+  @Transactional
+  public <S extends T> S saveAndFlushAndDetach(final S entity)
+  {
+    saveAndFlush(entity);
+
+    return detach(entity);
   }
 }

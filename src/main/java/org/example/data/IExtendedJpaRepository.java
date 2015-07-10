@@ -26,7 +26,7 @@ public interface IExtendedJpaRepository<T, ID extends Serializable>
    * @throws IllegalArgumentException if the instance is not an
    *                                  entity.
    */
-  T detach(T entity);
+  <S extends T> S detach(S entity);
 
   /**
    * Finds an entity instance using another instance as an example.
@@ -50,5 +50,14 @@ public interface IExtendedJpaRepository<T, ID extends Serializable>
    *                                                        and there is no transaction.
    * @throws javax.persistence.EntityNotFoundException      if the entity no longer exists in the database.
    */
-  T refresh(T entity);
+  <S extends T> S refresh(S entity);
+
+  /**
+   * Saves an entity, flushes changes instantly and detaches it from
+   * the persistence context so that it is not cached by the provider.
+   *
+   * @param entity The entity to save.
+   * @return The saved entity
+   */
+  <S extends T> S saveAndFlushAndDetach(S entity);
 }
