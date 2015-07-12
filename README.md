@@ -18,6 +18,7 @@ Concept | Description | See
 **AspectJ integration** | Intercepting Spring Data repository method calls using AspectJ | [`RepositoryInterceptionAdvice.java`](src/main/java/org/example/aop/RepositoryInterceptionAdvice.java)
 **SQL Injection protection** | Use type-safe, parameterized queries to prevent [SQL Injection attacks](https://en.wikipedia.org/wiki/SQL_injection) | [`StockRepositoryTest.java`](https://github.com/manish-in-java/spring-jpa-hibernate/blob/master/src/test/java/org/example/data/inventory/StockRepositoryTest.java)
 **Native SQL queries** | Use native SQL queries in cases where either JPQL is inadequate or native SQL is simply easier to write | [`JobRepository.java`](https://github.com/manish-in-java/spring-jpa-hibernate/blob/master/src/main/java/org/example/data/hiring/JobRepository.java)
+**Spring Data JPA with Scala** | Use Spring Data JPA with Scala classes and traits | [`SubjectRepository.scala`](src/main/scala/org/example/data/education/SubjectRepository.scala)
 **`Single Table` inheritance** | Single-table inheritance for storing related objects | [`Card.java`](src/main/java/org/example/domain/game/Card.java)
 **Polymorphism with generics** | Demonstrate inheritance-based polymorphism along with generics | [`CardInstance.java`](src/main/java/org/example/domain/game/CardInstance.java)
 
